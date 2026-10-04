@@ -1,6 +1,7 @@
 
 import { Button } from "@heroui/react";
 import Image from "next/image";
+import NavLinks from "./NavLinks";
 
 const date = new Date().toLocaleDateString("bn-BD", {
     dateStyle: "full",
@@ -8,14 +9,14 @@ const date = new Date().toLocaleDateString("bn-BD", {
 
 const Header = () => {
     return (
-        <div className="container max-w-7xl mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
             <div className="grid grid-cols-3 items-center">
 
                 {/* Left */}
                 <div></div>
 
                 {/* Center */}
-                <div className="flex items-center gap-2 justify-center">
+                <div className="flex items-center justify-center gap-2">
                     <Image
                         className="w-10 h-10"
                         height={50}
@@ -40,6 +41,7 @@ const Header = () => {
                 </div>
 
             </div>
+            <NavLinks></NavLinks>
         </div>
     );
 };
