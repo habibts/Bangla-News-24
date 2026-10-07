@@ -32,8 +32,8 @@ export default async function Home() {
 
 
     <div>
-      <Marquee></Marquee>
-      <div className="grid gap-3 grid-cols-3 max-w-7xl mx-auto">
+      
+      <div className="grid gap-5 grid-cols-3 max-w-7xl mx-auto">
         {/* news section */}
         <div className="col-span-2">
           <MainNews news={mainNews}></MainNews>
@@ -42,7 +42,7 @@ export default async function Home() {
               otherSections.map(os =>
                 <div key={os.curationId}>
                   <h1 className="font-bold border-b-2 pb-2 border-red-700">{os.title}</h1>
-                  <div className="grid grid-cols-3 mt-3">
+                  <div className="grid grid-cols-3 gap-5 mt-3">
                     {
                       os.articles.map(news => <NewsCard key={news.id} news={news}></NewsCard>)
                     }

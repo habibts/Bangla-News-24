@@ -14,7 +14,7 @@ const MainNews = ({ news }:{news:INews[]}) => {
 const [firstNews,...otherNews]=news
     
     return (
-        <div className='flex gap-2'>
+        <div className='flex gap-5'>
             <div className="card bg-base-100 shadow-sm">
                 <figure>
                     <Image

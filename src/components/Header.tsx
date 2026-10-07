@@ -9,7 +9,7 @@ const date = new Date().toLocaleDateString("bn-BD", {
 
 const Header = () => {
     return (
-        <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+        <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 mt-5">
             <div className="grid grid-cols-3 items-center">
 
                 {/* Left */}
