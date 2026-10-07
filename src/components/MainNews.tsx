@@ -15,7 +15,7 @@ const [firstNews,...otherNews]=news
     
     return (
         <div className='flex gap-2'>
-            <div className="card bg-base-100 w-96 shadow-sm">
+            <div className="card bg-base-100 shadow-sm">
                 <figure>
                     <Image
                         height={600}
@@ -34,7 +34,7 @@ const [firstNews,...otherNews]=news
                 {
                     otherNews.slice(0,4).map(on=>
                         <div key={on.id} className="card bg-base-100 border border-gray-300 py-5">
-                            <p className='text-red-600 font-semibold'>{firstNews.category}</p>
+                            <p className='text-red-600 font-semibold'>{on.category}</p>
                             <div>
                                 {on.title}
                             </div>
