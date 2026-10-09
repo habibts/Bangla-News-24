@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 interface INews{
@@ -15,7 +16,8 @@ const [firstNews,...otherNews]=news
     
     return (
         <div className='flex gap-5'>
-            <div className="card bg-base-100 shadow-sm">
+            <Link href={`/news/${firstNews.id}`}>
+            <div className="card bg-base-100 w-96 shadow-sm">
                 <figure>
                     <Image
                         height={600}
@@ -30,14 +32,17 @@ const [firstNews,...otherNews]=news
                     
                 </div>
             </div>
+            </Link>
             <div className='grid gap-2'>
                 {
                     otherNews.slice(0,4).map(on=>
                         <div key={on.id} className="card bg-base-100 border border-gray-300 py-5">
+                            <Link href={`/news/${on.id}`}>
                             <p className='text-red-600 font-semibold'>{on.category}</p>
                             <div>
                                 {on.title}
                             </div>
+                            </Link>
                         </div>
                     )
                 }

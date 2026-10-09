@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 interface ImostReadNews{
@@ -23,8 +24,10 @@ const MostRead = async() => {
             <div className='grid gap-3'>
                 {
                     news.map((n,i)=><div key={n.id} className='flex gap-2'>
+                        <Link href={`/news/${n.id}`}>
                         <p className='text-2xl text-red-600 font-bold'>{i+1}</p>
                         <h2>{n.title}</h2>
+                        </Link>
                     </div>)
                 }
             </div>
