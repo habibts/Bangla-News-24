@@ -2,6 +2,7 @@
 import { Button } from "@heroui/react";
 import Image from "next/image";
 import NavLinks from "./NavLinks";
+import UserInfo from "./UserInfo";
 
 const date = new Date().toLocaleDateString("bn-BD", {
     dateStyle: "full",
@@ -32,14 +33,8 @@ const Header = () => {
                 </div>
 
                 {/* Right */}
-                <div className="flex justify-end gap-2">
-                    <button>সাইন ইন</button>
-
-                    <Button className="bg-red-700 rounded px-4">
-                        সাইন আপ
-                    </Button>
-                </div>
-
+                
+<UserInfo></UserInfo>
             </div>
             <NavLinks></NavLinks>
         </div>
