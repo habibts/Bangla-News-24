@@ -3,8 +3,9 @@
 
 import { Button } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import Link from "next/link";
 
 const UserInfo = () => {
     const router = useRouter();
@@ -12,14 +13,21 @@ const UserInfo = () => {
     const { data: session, isPending } = authClient.useSession();
 
     const handleLogout = async () => {
-        await authClient.signOut({
-            fetchOptions: {
-                onSuccess: () => {
-                    router.push("/");
-                    router.refresh();
-                },
-            },
-        });
+        try {
+            const { error } = await authClient.signOut();
+
+            if (error) {
+                toast.error("Logout করা যায়নি। আবার চেষ্টা করুন।");
+                return;
+            }
+
+            toast.success("Logged out successfully!");
+
+            router.push("/");
+            router.refresh();
+        } catch {
+            toast.error("Logout করার সময় সমস্যা হয়েছে।");
+        }
     };
 
     if (isPending) {
@@ -27,7 +35,7 @@ const UserInfo = () => {
     }
 
     return (
-        <div className="flex justify-end items-center gap-2">
+        <div className="flex items-center justify-end gap-2">
             {session ? (
                 <>
                     <span className="font-medium">
@@ -36,7 +44,7 @@ const UserInfo = () => {
 
                     <Button
                         onPress={handleLogout}
-                        className="bg-red-700 text-white rounded px-4"
+                        className="rounded bg-red-700 px-4 text-white"
                     >
                         Logout
                     </Button>
@@ -44,13 +52,13 @@ const UserInfo = () => {
             ) : (
                 <>
                     <Link href="/signin">
-                        <Button variant="bordered">
+                        <Button variant="outline">
                             সাইন ইন
                         </Button>
                     </Link>
 
                     <Link href="/signup">
-                        <Button className="bg-red-700 text-white rounded px-4">
+                        <Button className="rounded bg-red-700 px-4 text-white">
                             সাইন আপ
                         </Button>
                     </Link>

@@ -1,31 +1,52 @@
 
 "use client";
 
+import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import Link from "next/link";
 
 const SignUpPage = () => {
-    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const router = useRouter();
+    const [loading, setLoading] = useState(false);
+
+    const onSubmit = async (
+        e: React.FormEvent<HTMLFormElement>
+    ) => {
         e.preventDefault();
+
+        if (loading) return;
 
         const formData = new FormData(e.currentTarget);
         const user = Object.fromEntries(formData.entries());
 
-        const { data, error } = await authClient.signUp.email({
-            name: user.name as string,
-            email: user.email as string,
-            password: user.password as string,
-            callbackURL: "/",
-        });
+        setLoading(true);
 
-        if (data) {
-            console.log(data);
-            redirect("/");
-            
-        }
+        try {
+            const { data, error } = await authClient.signUp.email({
+                name: user.name as string,
+                email: user.email as string,
+                password: user.password as string,
+                callbackURL: "/",
+            });
 
-        if (error) {
-            console.log(error);
+            if (error) {
+                toast.error(
+                    error.message || "Account তৈরি করা যায়নি। আবার চেষ্টা করুন।"
+                );
+                return;
+            }
+
+            if (data) {
+                toast.success("Account তৈরি হয়েছে! স্বাগতম BazarDor-এ।");
+                router.push("/");
+                router.refresh();
+            }
+        } catch {
+            toast.error("সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -58,14 +79,26 @@ const SignUpPage = () => {
                         className="input w-md"
                         placeholder="Password"
                         required
+                        minLength={8}
                     />
 
                     <button
                         type="submit"
+                        disabled={loading}
                         className="btn btn-neutral mt-4 w-md"
                     >
-                        Sign Up
+                        {loading ? "Creating Account..." : "Sign Up"}
                     </button>
+
+                    <p className="mt-3 text-sm">
+                        Already have an account?{" "}
+                        <Link
+                            href="/sign-in"
+                            className="text-red-700 underline"
+                        >
+                            Sign In
+                        </Link>
+                    </p>
                 </fieldset>
             </form>
         </div>
